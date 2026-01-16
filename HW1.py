@@ -1,4 +1,16 @@
 def cummax(x):
+    """
+    Input: Take a list as a parameters
+    Input:
+        x (list): A list of comparable elements.
+
+    Description:
+        Returns a list where each element is the maximum value seen so far.
+        Prints a ValueError message and returns None if the list is empty.
+
+    Output:
+        list or None
+    """
     try:
 
         if len(x) == 0:
@@ -13,22 +25,34 @@ def cummax(x):
             output.append(previous_max)
         return output
     except ValueError:
-        return "The list is empty"
+        print("A ValueError occurred: the input list is an empty list")
+        return None 
 
 
 
 
 def cumsum(x):
+    """
+    Input:
+        x (list): A list of integers.
+
+    Description:
+        Returns a list of cumulative sums of the elements in the list.
+        Prints a ValueError message and returns None if the list contains
+        non-integer values or is empty.
+
+    Output:
+        list or None
+    """
     try:
-        if len(x) == 0:
-            print("Inside")
-            raise Exception
+        if x == None or len(x) == 0:
+            return []
         
         output = []
         sumValue = 0
 
         for num in x:
-            if not isinstance(num, int):
+            if not isinstance(num, (int,float)):
                 output = []
                 sumValue = 0
                 raise ValueError
@@ -38,14 +62,13 @@ def cumsum(x):
 
         return output
     except ValueError:
-        return "A valueError occured: A list mustly only contain number!"
-    except:
-        return "The list is empty!"
+        print("A ValueError occurred: List must contain only numbers")
+        return None
 
 
 
 def sanitizing(word):
-    special_char = ["!",",",".","/","@","#","$","%","^","&","*","(",")","-"]
+    special_char = ["!",",",".","/","@","#","$","%","^","&","*","(",")","-","?"]
     output_string = ""
     for char in word:
         if char not in special_char:
@@ -53,27 +76,46 @@ def sanitizing(word):
 
     return output_string
 
-def tokenize(s):
-    try:
-        if len(s) == 0:
-            raise Exception
+def unique_tokens(s):
+    """
+    Input:
+        s (str): A string of words.
 
-        words_list = s.lower().split(" ")
-        print(words_list)
+    Description:
+        Tokenizes the string into lowercase, alphanumeric-only words
+        and returns a list of unique tokens.
+        Prints an error message and returns None if the string is empty.
 
-        output_list = []
+    Output:
+        list or None
+    """
+    if len(s) == 0:
+        return []
 
-        for words in words_list:
-            output = sanitizing(words)
-            if output not in output_list and len(output) > 0:
-                output_list.append(output)
+    words_list = s.lower().split(" ")
+
+    output_list = []
+
+    for words in words_list:
+        output = sanitizing(words)
+        if output not in output_list and len(output) > 0:
+            output_list.append(output)
         
-        return output_list
-    except Exception:
-        return "Some error occured!"
+    return output_list
 
 
 def anagram(word_list):
+    """
+    Input:
+        word_list (list): A list of strings.
+
+    Description:
+        Returns a dictionary counting occurrences of each sanitized anagram.
+        Prints an error message and returns None if the list is empty.
+
+    Output:
+        dict or None
+    """
     try:
         output_dict = {}
         if len(word_list) == 0:
@@ -89,10 +131,23 @@ def anagram(word_list):
             
         return output_dict
     except Exception:
-        return "The List is empty!"
+        print("The list is empty!") 
+        return None 
 
 
 def biagram(word_list):
+    """
+    Input:
+        word_list (list): A list of strings.
+
+    Description:
+        Returns a dictionary counting occurrences of sanitized word pairs
+        (bigrams) from consecutive elements in the list.
+        Prints an error message and returns None if the list is empty.
+
+    Output:
+        dict or None
+    """
     try:
         output_dict = {}
         if len(word_list) == 0:
@@ -108,10 +163,23 @@ def biagram(word_list):
             
         return output_dict
     except Exception:
-        return "The List is empty!"
+        print("The list is empty!") 
+        return None 
     
 
 def count_words(s):
+    """
+    Input:
+        s (str): A string of words.
+
+    Description:
+        Returns a dictionary containing counts of anagrams and bigrams
+        from the input string.
+        Prints an error message and returns None if the string is empty.
+
+    Output:
+        dict or None
+    """
     try:
         if len(s) == 0:
             raise Exception
@@ -121,11 +189,27 @@ def count_words(s):
 
         return anagram_dict | biagram_dict # type: ignore
     except:
-        return "The string is empty!"
+        print("The list is empty!") 
+        return None 
 
 
 
 def ifelse(test_list, yes_list, no_list):
+    """
+    Input:
+        test_list (list): A list of boolean values.
+        yes_list (list): A list of values used when test_list is True.
+        no_list (list): A list of values used when test_list is False.
+
+    Description:
+        Returns a list where elements are selected from yes_list or no_list
+        based on the corresponding boolean value in test_list.
+        Prints an error message and returns None if the lists are empty
+        or have different lengths.
+
+    Output:
+        list or None
+    """
     try:
         if len(test_list) == 0:
             raise Exception
@@ -143,5 +227,6 @@ def ifelse(test_list, yes_list, no_list):
         
         return output_list
     except Exception:
-        return "A ValueError occurred: The input lists have different length"
+        print("A ValueError occurred: The input lists have different length")
+        return None
     
